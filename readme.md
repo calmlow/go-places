@@ -20,6 +20,7 @@ Not part of installation.. but this is how I initialized the project.
 # installed version of go: 1.23.4
 go mod init github.com/calmlow/go-places
 go get github.com/rivo/tview
+go get gopkg.in/yaml.v3
 ```
 
 ## build and install
@@ -38,9 +39,11 @@ my terminal setup with [nerd fonts](https://www.nerdfonts.com/cheat-sheet).
 
 ```bash
 # bash
-ANSI_ORANGE
-ANSI_PURPLE
-NO_C
+ANSI_ORANGE='\033[0;33m'
+ANSI_PURPLE='\033[0;35m'
+NO_C='\x1b[0m'
+N_HOME='\ue780'
+
 
 show_repo_selector_tool() {
   ~/bin/go-places # or other path to the executable
@@ -48,7 +51,7 @@ show_repo_selector_tool() {
   if [ $STATUS_OF_LAST_CMD -eq 0 ]; then
     TMP_DIR1=$(cat /tmp/selected-repo.txt.tmp)
     TMP_DIR2=$(echo $TMP_DIR1 | cut -d'=' -f 2)
-    echo -e "Going to $ANSI_ORANGE\ue780 $ANSI_PURPLE$TMP_DIR2 $NO_C"
+    echo -e "Going to ${ANSI_ORANGE}${N_HOME} ${ANSI_PURPLE}${TMP_DIR2} ${NO_C}"
     if [[ -d "$TMP_DIR2" ]]; then
       cd $TMP_DIR2
     else
