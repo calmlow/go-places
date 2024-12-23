@@ -114,10 +114,7 @@ go get github.com/rivo/tview
 Create a config file in your home directory:
 
 ```bash
-cd $HOME/.config
-mkdir reposelector
-cd reposelector
-touch reposelector-config.yaml
+mkdir -p ~/.config/go-places && touch ~/.config/go-places/go-places-config.yaml
 ```
 
 The structure of the config file is:
@@ -130,6 +127,11 @@ places:
     path: ~/my-repos/my-important-repo1
   - name: my-important-repo2
     path: ~/my-repos/my-important-repo2
+```
+
+```bash
+# populate above example into the config file you just created
+sed -n '123,129p' ~/r/go-places/readme.md > ~/.config/go-places/go-places-config.yaml
 ```
 
 See the .json schema in ./asssets 
