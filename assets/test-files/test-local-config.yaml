@@ -1,0 +1,11 @@
+places:
+  - name: repo-selector
+    shortcut: "_"
+    description: This tool is what you are viewing right now
+    docs-url: "test docs url"
+    path: "/home/some-repo"
+  - name: other-repo
+    shortcut: _
+    description: This tool is what you are viewing right now
+    docs-url: "test docs url"
+    path: "/home/some-repo"

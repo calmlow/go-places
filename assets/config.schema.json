@@ -1,0 +1,76 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/calmlow/go-places",
+  "title": "Go Places Config Schema",
+  "description": "Local config file for Go Places tool",
+  "type": "object",
+  "$comment": "This file has ...",
+  "additionalProperties": false,
+  "required": [
+    "places"
+  ],
+  "properties": {
+    "places": {
+      "title": "Places List",
+      "description": "The list of the repositories or other interesting places you want to include in the tool",
+      "type": "array",
+      "items": {
+        "title": "Places Metadata",
+        "type": "object",
+        "required": [
+          "name",
+          "path"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Name of the place"
+          },
+          "shortcut": {
+            "type": "string",
+            "maxLength": 1,
+            "description": "Assign a shortcut for this menu item"
+          },
+          "description": {
+            "type": "string"
+          },
+          "docs-url": {
+            "type": "string",
+            "default": "",
+            "format": "uri",
+            "minLength": 0
+          },
+          "path": {
+            "type": "string"
+          },
+          "hidden": {
+            "type": "boolean",
+            "default": false,
+            "description": "Setting this to true would make the item show in the tool only after pressing the 'Insert'-button"
+          }
+        },
+        "minItems": 1
+      },
+      "examples": [
+        {
+          "places": [
+            {
+              "name": "go-places",
+              "shortcut": "R",
+              "description": "This tool is what you are viewing right now",
+              "docs-url": "",
+              "path": "~/r/go-places"
+            }
+          ]
+        }
+      ]
+    },
+    "background-color": {
+      "title": "Background Color of the tool",
+      "type": "string",
+      "description": "Currently not implemented. TODO: implement this value in the code"
+    }
+  }
+}
