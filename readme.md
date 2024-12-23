@@ -2,22 +2,23 @@
 
 Show your places (folders and files) and go there.
 
-The used to be called reposelector, now just "Places", probably legacy left
+It was used to be called reposelector, now just "Places", probably legacy left
 
 ## Purpose
 
 There are many "terminal tools" out there that does this, automatically keep track of most visited "places" and can
 generate some kind of drop down for you to easily navigate there. Probably a plugin in zsh...
 
-But the files I visit are always the same and I want to be in control of how this is handled. Also to implement
-this in Go and TView
+But the files I visit are many times the same and I want to be in control of how this is handled. Also to implement
+this in Go and TView for educational purposes, along with the setup in Bash (bind) & Zsh (bindkey)
 
 ## SETUP
 
 Not part of installation.. but this is how I initialized the project.
 
 ```bash
-go mod init github.com/calmlow/reposelector
+# installed version of go: 1.23.4
+go mod init github.com/calmlow/go-places
 go get github.com/rivo/tview
 ```
 
@@ -29,12 +30,18 @@ go build -o go-places main.go
 make build
 ```
 
-## Bind
+## Bash and Zsh Setup
 
-To make the tool useful, I have the following bind setup
+To make the tool useful, I have the following bind setup. Also to get some icons in the tool I have
+my terminal setup with [nerd fonts](https://www.nerdfonts.com/cheat-sheet).
+
 
 ```bash
 # bash
+ANSI_ORANGE
+ANSI_PURPLE
+NO_C
+
 show_repo_selector_tool() {
   ~/bin/go-places # or other path to the executable
   STATUS_OF_LAST_CMD=$?
@@ -54,6 +61,7 @@ show_repo_selector_tool() {
 # Shift+ArrowLeft & Alt+R
 bind -x '"\C-[r": "show_repo_selector_tool"'
 bind -x '"\e[1;2D": show_repo_selector_tool' # Shift + ArrowLeft
+# if your terminal supports some kind of select mode - maybe you don't want to bind the shift+left key.
 
 # if you want to run it as a command instead of a bind shortcut, you need to add:
 alias go-places="$DIR_TO_BIN/go-places && source /tmp/selected-repo.txt.tmp && cd \$TMP_GO_SELECTED_REPO"
