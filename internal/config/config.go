@@ -4,12 +4,18 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"path"
 	"path/filepath"
 
 	"sync"
 
 	"github.com/calmlow/go-places/internal/types"
 	"gopkg.in/yaml.v3"
+)
+
+const (
+	LOCAL_CONF_FOLDER_NAME = "go-places"
+	LOCAL_CONF_FILE_NAME   = "go-places-config.yaml"
 )
 
 var (
@@ -80,5 +86,5 @@ func getLocalConfigPath() string {
 		configHome = home + "/.config"
 	}
 
-	return configHome + "/reposelector/reposelector-config.yaml"
+	return path.Join(configHome, LOCAL_CONF_FOLDER_NAME, LOCAL_CONF_FILE_NAME)
 }

@@ -19,6 +19,7 @@ const (
 	PAGE1_MAIN      = "main"
 	PAGE2_REPO_HOME = "repoHome"
 	COLS_MAX        = 435
+	N_FOLDER        = "\ue613"
 )
 
 func RunGui() {
@@ -123,9 +124,9 @@ func addListItems(list *tview.List, noSubMenu func(), selectedMenu func(), repoL
 
 		if fi, err := os.Stat(io.CleanRepoPath(repo.Path)); err == nil {
 			if fi.Mode().IsDir() {
-				list.AddItem(getIcon(repo.Path, true)+" "+repo.Name, repo.Description, repo.ShortcutAsRune(), selectedMenu)
+				list.AddItem(N_FOLDER+" "+repo.Name, repo.Description, repo.ShortcutAsRune(), selectedMenu)
 			} else {
-				list.AddItem(getIcon(repo.Path, false)+" "+repo.Name, repo.Description, repo.ShortcutAsRune(), noSubMenu)
+				list.AddItem(getIcon(repo.Path)+" "+repo.Name, repo.Description, repo.ShortcutAsRune(), noSubMenu)
 			}
 		} else {
 			panic(fmt.Errorf("one of the paths in your config doesn't resolve to a place in the file system: %s. %v", repo.Path, err))
@@ -133,12 +134,7 @@ func addListItems(list *tview.List, noSubMenu func(), selectedMenu func(), repoL
 	}
 }
 
-// get nerd icon - far from complete..
-func getIcon(p string, isFolder bool) string {
-
-	if isFolder {
-		return "\ue613"
-	}
+func getIconOld(p string) string {
 
 	if strings.Contains(p, "linux") {
 		return "\u033d"
@@ -163,4 +159,48 @@ func getIcon(p string, isFolder bool) string {
 		return "\ue709"
 	}
 
+}
+
+func getIcon(p string) string {
+
+	if strings.Contains(p, "linux") {
+		return "\u033d" // Or a more appropriate Linux icon
+	}
+
+	switch filepath.Ext(p) {
+	case ".jpg", ".jpeg", ".png", ".gif", ".svg", ".bmp", ".tiff":
+		return "\ue70f" // Image file
+	case ".yaml", ".yml":
+		return "\uf89c" // YAML file (Nerd Font icon)
+	case ".pdf":
+		return "\ue737" // PDF file
+	case ".go":
+		return "\ue626" // Go file (Nerd Font icon)
+	case ".java":
+		return "\ue738" // Java file (Nerd Font icon)
+	case ".py":
+		return "\ue606" // Python file (Nerd Font icon)
+	case ".js", ".jsx", ".ts", ".tsx":
+		return "\ue74e" // Javascript/Typescript file (Nerd Font icon)
+	case ".html", ".htm":
+		return "\uf13b" // HTML file (Nerd Font icon)
+	case ".css":
+		return "\ue749" // CSS file (Nerd Font icon)
+	case ".json":
+		return "\ue60b" // JSON file (Nerd Font icon)
+	case ".md":
+		return "\uf48a" // Markdown file
+	case ".zip", ".tar", ".gz", ".rar", ".7z":
+		return "\ue79b" // Archive file
+	case ".doc", ".docx":
+		return "\uf1c2" // Word document (Nerd Font icon)
+	case ".xls", ".xlsx":
+		return "\uf1c3" // Excel spreadsheet (Nerd Font icon)
+	case ".ppt", ".pptx":
+		return "\uf1c4" // PowerPoint presentation (Nerd Font icon)
+	case ".txt":
+		return "\uf0f6" // Text file (Nerd Font icon)
+	default:
+		return "\ue709" // Generic file
+	}
 }
